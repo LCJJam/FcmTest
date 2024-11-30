@@ -1,24 +1,18 @@
 pluginManagement {
     repositories {
-        google {
-            content {
-                includeGroupByRegex("com\\.android.*")
-                includeGroupByRegex("com\\.google.*")
-                includeGroupByRegex("androidx.*")
-            }
-        }
+        google()
         mavenCentral()
         gradlePluginPortal()
     }
 }
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-    }
-}
 
-rootProject.name = "FcmTest"
 include(":app")
- 
+
+// Required so that gradle can resolve these dependencies even when
+// building only a single project.
+include(":internal:lintchecks")
+project(":internal:lintchecks").projectDir = file("../internal/lintchecks")
+include(":internal:lint")
+project(":internal:lint").projectDir = file("../internal/lint")
+include(":internal:chooserx")
+project(":internal:chooserx").projectDir = file("../internal/chooserx")
